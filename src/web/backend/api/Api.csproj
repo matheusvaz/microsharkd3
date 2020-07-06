@@ -1,0 +1,27 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+    <PropertyGroup>
+        <TargetFramework>netcoreapp3.1</TargetFramework>
+        <NoDefaultLaunchSettingsFile>True</NoDefaultLaunchSettingsFile>
+    </PropertyGroup>
+
+     <ItemGroup>
+        <Content Include="../../../../.env">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </Content>
+    </ItemGroup>
+
+    <ItemGroup>
+        <ProjectReference Include="..\..\..\lib\common\env\Common.Env.csproj" />
+        <ProjectReference Include="..\..\..\lib\common\infra\Common.Infra.csproj" />
+        <ProjectReference Include="..\..\..\lib\membership\application\Membership.Application.csproj" />
+        <ProjectReference Include="..\..\..\lib\membership\infra\Membership.Infra.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <PackageReference Include="IdentityServer4.AccessTokenValidation" Version="3.0.1" />
+      <PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="8.0.1" />
+      <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="3.1.5" />
+      <PackageReference Include="Microsoft.AspNetCore.Mvc.Versioning" Version="4.1.1" />
+      <PackageReference Include="Microsoft.Extensions.Caching.StackExchangeRedis" Version="3.1.5" />
+    </ItemGroup>
+</Project>

@@ -1,0 +1,21 @@
+# 1 - Install mkcert
+# macOS
+
+# brew install mkcert
+# brew install nss # if you use Firefox
+
+# Linux
+# sudo apt install libnss3-tools
+#     -or-
+# sudo yum install nss-tools
+#     -or-
+# sudo pacman -S nss
+#     -or-
+# sudo zypper install mozilla-nss-tools
+
+# Windows
+# choco install mkcert
+
+# 2 - mkcert -install
+
+# 3 - mkcert localhost 127.0.0.1 ::1

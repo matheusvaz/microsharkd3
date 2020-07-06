@@ -1,0 +1,36 @@
+{
+    "ERROR": {
+        "GUARD": "Opa, alguma coisa deu errado."
+    },
+
+    "VALIDATION": {
+        "RESPONSE_TITLE": "Um ou mais erros de validação ocorreram."
+    },
+
+    "CREATE_USER_COMMAND": {
+        "FIRSTNAME_NOT_EMPTY": "O nome não deve estar vazio.",
+        "FIRST_NAME_MAXIMUM_LENGTH": "O nome não deve ter mais do que {0} caracteres",
+        "LASTNAME_NOT_EMPTY": "Sobrenome não deve estar vazio.",
+        "LASTNAME_MAXIMUM_LENGTH": "O sobrenome não deve ter mais do que {0} caracteres.",
+        "USERNAME_NOT_EMPTY": "O nome de usuário não deve estar vazio.",
+        "USERNAME_MAXIMUM_LENGTH": "O nome de usuário não ter mais do que {0} caracteres.",
+        "EMAIL_NOT_EMPTY": "O email não deve estar vazio.",
+        "EMAIL_MAXIMUM_LENGTH": "Email não deve ter mais do que {0} caracteres.",
+        "EMAIL": "Endereço de email inválido.",
+        "PASSWORD_NOT_EMPTY": "A senha não deve estar vazia."
+    },
+
+    "MVC": {
+        "VALUE_MUST_NOT_BE_NULL_ACCESSOR": "O valor '{0}' não é válido.",
+        "VALUE_MUST_BE_A_NUMBER_ACCESSOR": "O campo {0} deve ser um número.",
+        "VALUE_IS_INVALID_ACCESSOR": "O valor '{0}' não é válido.",
+        "UNKNOWN_VALUE_IS_INVALID_ACCESSOR": "O valor fornecido é inválido para o campo {0}.",
+        "NON_PROPERTY_VALUE_MUST_BE_A_NUMBER_ACCESSOR": "O campo deve ser um número.",
+        "NON_PROPERTY_UNKNOWN_VALUE_IS_INVALID_ACCESSOR": "O valor informado não é válido.",
+        "NON_PROPERTY_ATTEMPTED_VALUE_IS_INVALID_ACCESSOR": "O valor '{0}' não é válido.",
+        "MISSING_REQUEST_BODY_REQUIRED_VALUE_ACCESSOR": "A requisição não pode ter um body vazio.",
+        "MISSING_KEY_OR_VALUE_ACCESSOR": "É necessário um valor.",
+        "MISSING_BIND_REQUIRED_VALUE_ACCESSOR": "Um valor para a propriedade '{0}' não foi fornecido.",
+        "ATTEMPTED_VALUE_IS_INVALID_ACCESSOR": "O valor '{0}' não é válido para {1}."
+    }
+}

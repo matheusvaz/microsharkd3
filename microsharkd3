@@ -1,0 +1,214 @@
+#!/bin/bash
+
+# |--------------------------------------------------------------------------
+# | Variables
+# |--------------------------------------------------------------------------
+
+# Load env
+if [[ -f ".env" ]]; then
+    while IFS='=' read -r KEY temp || [ -n "$KEY" ]; do
+        IS_COMMENT='^[[:space:]]*#';
+        IS_BLANK='^[[:space:]]*$';
+
+        [[ $KEY =~ $IS_COMMENT ]] && continue;
+        [[ $KEY =~ $IS_BLANK ]] && continue;
+
+        VALUE=$(eval echo "${temp//;/\\;}");
+        eval export "$KEY='$VALUE'";
+    done < .env
+fi
+
+# Publish directory
+if [ $ASPNETCORE_ENVIRONMENT = "Production" ]; then
+    PUBLISH_DIR='bin/Release/netstandard2.0/publish';
+else
+    PUBLISH_DIR='bin/Debug/netstandard2.0/publish';
+fi
+
+# Colors
+NC='\033[0m';
+RED='\033[0;31m';
+GREEN='\033[0;32m';
+YELLOW="\033[0;33m";
+CYAN='\033[0;36m';
+
+# OS library extension
+UNNAME_OUT="$(uname -s)";
+
+case "${UNNAME_OUT}" in
+    Linux*)     EXTENSION=".so";;
+    Darwin*)    EXTENSION=".so";;
+    CYGWIN*)    EXTENSION=".dll";;
+    MINGW*)     EXTENSION=".dll";;
+    *)          EXTENSION=".so"
+esac
+
+# |--------------------------------------------------------------------------
+# | Functions
+# |--------------------------------------------------------------------------
+
+show_help()
+{
+    echo -e "";
+    echo -e "${CYAN}|---------------------------------------------------------------";
+    echo -e "| microshark3d cli";
+    echo -e "| Author: Matheus Vaz <mail@matheusvaz.com>";
+    echo -e "|---------------------------------------------------------------${NC}";
+    echo -e "";
+    echo -e "Commands           Description                                             Options";
+    echo -e "========           ===========                                             =======";
+    echo -e "${GREEN}publish            Run dotnet publish (Necessary to run migrations)        ";
+    echo -e "";
+    echo -e "${GREEN}migrate            Migration runner interface                              ";
+    echo -e "${GREEN}                   Apply all migrations                                    ${YELLOW}--all";
+    echo -e "${GREEN}                   List applied and pending migrations                     ${YELLOW}--list";
+    echo -e "${GREEN}                   Apply migrations up to given version (inclusive)        ${YELLOW}--up-to <MIGRATION_ID>";
+    echo -e "${GREEN}                   Apply migrations down to given version (exclusive)      ${YELLOW}--down-to <MIGRATION_ID>";
+    echo -e "${GREEN}                   Rollback all migrations                                 ${YELLOW}--rollback";
+    echo -e "${GREEN}                   Rollback to given version                               ${YELLOW}--rollback <MIGRATION_ID>";
+    echo -e "${GREEN}                   Rollback the last migration applied                     ${YELLOW}--rollback-last";
+    echo -e "${GREEN}                   Rollback by <n> steps                                   ${YELLOW}--rollback-steps <N>";
+    echo -e "${GREEN}                   Validate order of applied migrations                    ${YELLOW}--validate";
+    echo -e "${GREEN}                   Generate SQL file of the migration                      ${YELLOW}--sql-output <FILENAME>";
+    echo -e "";
+    echo -e "${GREEN}migration          Create migration file                                   ${YELLOW}<NAME> <DOMAIN_NAME>${NC}";
+    echo -e "";
+    echo -e "${GREEN}help               Shows this help menu                                    ";
+}
+
+migrator_exec()
+{
+    for PROJECTS in $(find src/lib/ -name '*.csproj' | grep Infra); do
+        ASSEMBLY_NAME=$(basename $PROJECTS | sed "s/.csproj/$EXTENSION/g");
+        CONTEXT_DIR=$(dirname $PROJECTS)/$PUBLISH_DIR;
+
+        echo -e "${GREEN}$ASSEMBLY_NAME assembly${NC}\n";
+
+        dotnet fm $1 -p $DB_TYPE -c "$DB_CONNECTION_STRING" \
+        -a $CONTEXT_DIR/$ASSEMBLY_NAME $2;
+    done
+}
+
+migration_stub()
+{
+    STUB="using Common.Domain.ValueObject;
+using FluentMigrator;
+
+namespace __NAMESPACE__.Migrations
+{
+    [Migration(__MIGRATION_ID__)]
+    public class __MIGRATION_NAME__ : Migration
+    {
+        public override void Up()
+        {
+            Create.Table(\"Table\")
+                .WithColumn(\"Id\").AsString(Id.FieldSize).NotNullable().PrimaryKey()
+                .WithColumn(\"CreatedAt\").AsDateTime2().NotNullable()
+                .WithColumn(\"UpdatedAt\").AsDateTime2().Nullable()
+                .WithColumn(\"DeletedAt\").AsDateTime2().Nullable();
+        }
+
+        public override void Down()
+        {
+            Delete.Table(\"Table\");
+        }
+    }
+}";
+
+    LINES=$(find src/lib/ -name "$2*.csproj" | grep Infra | wc -l);
+
+    if [ $LINES -eq 0 ]; then
+        echo -e "${RED}Domain '$2' was not found${NC}"
+        show_help
+
+        exit 1;
+    fi
+
+    FULL_PATH=$(find src/lib/ -name "$2*.csproj" | grep Infra);
+
+    DIR=$(dirname $FULL_PATH);
+    NAMESPACE=$(basename $FULL_PATH | sed 's/.csproj//g');
+    FILENAME=$(date '+%d_%m_%Y_%H%M'_$1.cs)
+
+    if [ ! -d $DIR/Migrations ]; then
+        mkdir $DIR/Migrations;
+    fi
+
+    echo -e "$STUB" | sed "s/__MIGRATION_ID__/$(date '+%d%m%Y%H%M')/g" | \
+    sed "s/__MIGRATION_NAME__/$1/g" | sed "s/__NAMESPACE__/$NAMESPACE/g" \
+    > $DIR/Migrations/$FILENAME;
+
+    echo -e "${GREEN}Migration created successfully at $DIR/Migrations/$FILENAME${NC}";
+}
+
+# |--------------------------------------------------------------------------
+# | Script
+# |--------------------------------------------------------------------------
+
+if ! command -v dotnet &> /dev/null; then
+    echo -e "${RED}You need dotnet framework installed and in your PATH.";
+    echo -e "Instructions it at https://github.com/matheusvaz/microsharkd3 for you to READ!${NC}";
+
+    exit 1;
+fi
+
+case $1 in
+"publish")
+    echo -e "${CYAN}[!] Running dotnet publish${NC}\n";
+    dotnet publish;
+    ;;
+
+"migrate")
+    case $2 in
+        "--all") migrator_exec "migrate";;
+        "--up-to") migrator_exec "migrate" "up -t $3";;
+        "--down-to") migrator_exec "migrate" "down -t $3";;
+        "--rollback")
+            if [ -z $3 ]; then
+
+                migrator_exec "rollback" "all";
+            else
+                migrator_exec "rollback" "to $3";
+            fi
+            ;;
+        "--rollback-last") migrator_exec "rollback";;
+        "--rollback-steps") migrator_exec "rollback" "by $3";;
+        "--list") migrator_exec "list migrations";;
+        "--validate") migrator_exec "validate versions";;
+        "--sql-output") migrator_exec "migrate" "--preview -o=$3";;
+
+        *)
+            echo -e "";
+            echo -e "${RED}Missing options for migrate command or option passed does not exists!${NC}";
+
+            show_help
+
+            exit 1;
+        ;;
+    esac
+    ;;
+
+"migration")
+    if [ $# -lt 3 ]; then
+        echo -e "";
+        echo -e "${RED}Missing arguments!${NC}";
+
+        show_help
+
+        exit 1;
+    else
+        migration_stub $2 $3
+    fi
+    ;;
+
+*)
+    if [ ! -z $1 ]; then
+        echo -e "";
+        echo -e "${RED}Command '$1' does not exists!${NC}";
+    fi
+
+    show_help
+
+    exit 1;
+    ;;
+esac

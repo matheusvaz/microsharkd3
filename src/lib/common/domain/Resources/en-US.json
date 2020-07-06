@@ -1,0 +1,78 @@
+{
+    "ERROR": {
+        "GUARD": "Ops! Something went wrong.",
+        "ID_FORMAT": "Id is in a wrong format.",
+        "TRANSACTION_ALREADY_OPENED": "Cannot have more than one transaction per session."
+    },
+
+    "VALIDATION": {
+        "RESPONSE_TITLE": "One or more validation errors occurred."
+    },
+
+    "CREATE_USER_COMMAND": {
+        "FIRSTNAME_NOT_EMPTY": "First name should not be empty.",
+        "FIRST_NAME_MAXIMUM_LENGTH": "First name length should not be greater then {0} characters.",
+        "LASTNAME_NOT_EMPTY": "Last name should not be empty.",
+        "LASTNAME_MAXIMUM_LENGTH": "Last name length should not be greater then {0} characters.",
+        "USERNAME_NOT_EMPTY": "Username should not be empty.",
+        "USERNAME_MAXIMUM_LENGTH": "Username length should not be greater then {0} characters.",
+        "EMAIL_NOT_EMPTY": "Email should not be empty.",
+        "EMAIL_MAXIMUM_LENGTH": "Email length should not be greater then {0} characters.",
+        "EMAIL": "Invalid email address.",
+        "PASSWORD_NOT_EMPTY": "Password should not be empty."
+    },
+
+    "MEMBERSHIP_CLAIMS": {
+        "NAME_NOT_EMPTY": "Name should not be empty.",
+        "NAME_MAXIMUM_LENGTH": "Name should not have more then {0} characters.",
+        "VALUE_NOT_EMPTY": "Value should not be empty.",
+        "VALUE_MAXIMUM_LENGTH": "Value should not have more then {0} characters."
+    },
+
+    "MEMBERSHIP_EMAIL": {
+        "EMAIL_NOT_EMPTY": "Email should not be empty.",
+        "EMAIL_MAXIMUM_LENGTH": "Email length should not be greater then {0} characters.",
+        "EMAIL": "Invalid email address."
+    },
+
+    "MEMBERSHIP_PASSWORD": {
+        "PASSWORD_NOT_EMPTY": "Password should not be empty."
+    },
+
+    "MEMBERSHIP_PHONE_NUMBER": {
+        "PHONE_NUMBER_NOT_EMPTY": "Phone number should not be empty.",
+        "PHONE_NUMBER": "Invalid phone number."
+    },
+
+    "MEMBERSHIP_ROLE": {
+        "NAME_NOT_EMPTY": "Name should not be empty.",
+        "NAME_MAXIMUM_LENGTH": "Name should not have more then {0} characters."
+    },
+
+    "MEMBERSHIP_USER": {
+        "FIRSTNAME_NOT_EMPTY": "First name should not be empty.",
+        "FIRST_NAME_MAXIMUM_LENGTH": "First name length should not be greater then {0} characters.",
+        "LASTNAME_NOT_EMPTY": "Last name should not be empty.",
+        "LASTNAME_MAXIMUM_LENGTH": "Last name length should not be greater then {0} characters."
+    },
+
+    "MEMBERSHIP_USER_NAME": {
+        "USERNAME_NOT_EMPTY": "Username should not be empty.",
+        "USERNAME_MAXIMUM_LENGTH": "Username length should not be greater then {0} characters.",
+        "USERNAME": "Username should contain only letters, numbers and underscore"
+    },
+
+    "MVC": {
+        "VALUE_MUST_NOT_BE_NULL_ACCESSOR": "The value '{0}' is invalid.",
+        "VALUE_MUST_BE_A_NUMBER_ACCESSOR": "The field {0} must be a number.",
+        "VALUE_IS_INVALID_ACCESSOR": "The value '{0}' is invalid.",
+        "UNKNOWN_VALUE_IS_INVALID_ACCESSOR": "The supplied value is invalid for {0}.",
+        "NON_PROPERTY_VALUE_MUST_BE_A_NUMBER_ACCESSOR": "The field must be a number.",
+        "NON_PROPERTY_UNKNOWN_VALUE_IS_INVALID_ACCESSOR": "The supplied value is invalid.",
+        "NON_PROPERTY_ATTEMPTED_VALUE_IS_INVALID_ACCESSOR": "The value '{0}' is not valid.",
+        "MISSING_REQUEST_BODY_REQUIRED_VALUE_ACCESSOR": "A non-empty request body is required.",
+        "MISSING_KEY_OR_VALUE_ACCESSOR": "A value is required.",
+        "MISSING_BIND_REQUIRED_VALUE_ACCESSOR": "A value for the '{0}' property was not provided.",
+        "ATTEMPTED_VALUE_IS_INVALID_ACCESSOR": "The value '{0}' is not valid for {1}."
+    }
+}
