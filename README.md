@@ -17,7 +17,7 @@ The command line tool supports execution of database migration and scaffolding.<
 ```text
 |---------------------------------------------------------------
 | microshark3d cli
-| Author: Matheus Vaz <mail@matheusvaz.com>
+| Author: Matheus Vaz <git@matheusvaz.com>
 |---------------------------------------------------------------
 
 Commands           Description                                             Options

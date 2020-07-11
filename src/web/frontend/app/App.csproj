@@ -4,7 +4,7 @@
         <NoDefaultLaunchSettingsFile>True</NoDefaultLaunchSettingsFile>
     </PropertyGroup>
 
-    <ItemGroup>
+    <ItemGroup Condition="'$(Configuration)' == 'Debug'">
         <Content Include="../../../../.env">
             <CopyToOutputDirectory>Always</CopyToOutputDirectory>
         </Content>

@@ -12,6 +12,6 @@ namespace Api.Controllers.Membership
     public class PasswordController : Controller
     {
         public PasswordController(INotificationHandler<DomainNotification> notifications,
-                               EventHandler eventHandler) : base(notifications, eventHandler) { }
+                                  EventHandler eventHandler) : base(notifications, eventHandler) { }
     }
 }

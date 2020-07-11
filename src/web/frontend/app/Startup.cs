@@ -19,7 +19,7 @@ namespace Web.App
         {
             services.AddProxy();
             services.AddAccessTokenManagement();
-            services.AddControllersWithViews().AddApplicationPart(typeof(Endpoints).Assembly);
+            services.AddControllers().AddApplicationPart(typeof(Endpoints).Assembly);            
             services.AddSpaStaticFiles(options =>
             {
                 options.RootPath = "Resources/dist";
@@ -33,7 +33,7 @@ namespace Web.App
             .AddCookie("cookies", options =>
             {
                 // App Session Id
-                options.Cookie.Name = "asid";
+                options.Cookie.Name = Env.GetString("APP_SESSION_COOKIE_NAME");
                 options.Cookie.SameSite = SameSiteMode.Strict;
                 options.Cookie.SecurePolicy = CookieSecurePolicy.Always;
                 options.SlidingExpiration = true;
@@ -61,7 +61,7 @@ namespace Web.App
 
             services.AddAntiforgery(options =>
             {
-                options.Cookie.Name = "acsrf";
+                options.Cookie.Name = Env.GetString("APP_CSRF_COOKIE_NAME");
                 options.Cookie.SecurePolicy = CookieSecurePolicy.Always;
                 options.HeaderName = "X-XSRF-TOKEN";
             });

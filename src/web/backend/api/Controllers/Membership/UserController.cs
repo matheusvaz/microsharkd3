@@ -26,7 +26,5 @@ namespace Api.Controllers.Membership
 
             return Created();
         }
-
-       
     }
 }

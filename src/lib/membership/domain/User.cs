@@ -15,7 +15,7 @@ namespace Membership.Domain
         public Password Password { get; private set; }
         public UserStatus Status { get; private set; }
         public PhoneNumber PhoneNumber { get; private set; }
-        public bool TwoFactorEnabled { get; set; }
+        public bool TwoFactorEnabled { get; private set; }
 
         private ICollection<Claim> _claims = new List<Claim>();
         public virtual IReadOnlyCollection<Claim> Claims => _claims.ToArray();

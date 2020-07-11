@@ -14,8 +14,8 @@ namespace Web.Common
 
                 if (string.Equals(currentSid, sid, StringComparison.Ordinal) &&
                     string.Equals(iss, Env.GetString("AUTH_HTTPS_URL"), StringComparison.Ordinal))
-                {
-                    Response.Cookies.Delete("bkosid");
+                {                    
+                    Response.Cookies.Delete(Env.GetString("APP_SESSION_COOKIE_NAME"));
                 }
             }
 
