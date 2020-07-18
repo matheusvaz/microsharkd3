@@ -128,13 +128,13 @@ namespace __NAMESPACE__.Migrations
 
     DIR=$(dirname $FULL_PATH);
     NAMESPACE=$(basename $FULL_PATH | sed 's/.csproj//g');
-    FILENAME=$(date '+%d_%m_%Y_%H%M'_$1.cs)
+    FILENAME=$(date '+%Y_%m_%d_%H%M%S'_$1.cs)
 
     if [ ! -d $DIR/Migrations ]; then
         mkdir $DIR/Migrations;
     fi
 
-    echo -e "$STUB" | sed "s/__MIGRATION_ID__/$(date '+%d%m%Y%H%M')/g" | \
+    echo -e "$STUB" | sed "s/__MIGRATION_ID__/$(date '+%Y%m%d%H%M%S')/g" | \
     sed "s/__MIGRATION_NAME__/$1/g" | sed "s/__NAMESPACE__/$NAMESPACE/g" \
     > $DIR/Migrations/$FILENAME;
 

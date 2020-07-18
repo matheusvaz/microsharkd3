@@ -28,7 +28,7 @@ namespace auth.extensions
             .AddOperationalStore(options =>
             {
                 options.ConfigureDbContext = b => b.UseMySql(
-                    Env.GetString("DB_CONNECTION_STRING"),
+                    Env.GetString("AUTH_DB_CONNECTION"),
                     sql => sql.MigrationsAssembly(migrationsAssembly)
                 );
             })

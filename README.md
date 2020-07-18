@@ -12,6 +12,21 @@ dotnet tool install -g FluentMigrator.Dotnet.Cli
 brew install mkcert || choco install mkcert || apt install libnss3-tools
 ```
 
+## Running
+```sh
+# Redis server
+redis-server
+
+# OAuth migrations
+export AUTH_DB_CONNECTION="YOUR CONNECTION STRING"
+cd src/web/backend/auth
+dotnet ef database update -c PersistedGrantDbContext
+
+# Domain migrations
+bash mithrandom publish
+bash mithrandom migration --all
+```
+
 ## Command line tool
 The command line tool supports execution of database migration and scaffolding.<br />
 ```text

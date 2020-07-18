@@ -4,7 +4,7 @@ using Membership.Domain;
 
 namespace Membership.Infra.Migrations
 {
-    [Migration(202003011735)]
+    [Migration(20200301173521)]
     public class CreateClaimTable : Migration
     {
         public override void Up()

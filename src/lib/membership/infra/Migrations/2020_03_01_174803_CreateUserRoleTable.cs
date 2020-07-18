@@ -3,7 +3,7 @@ using FluentMigrator;
 
 namespace Membership.Infra.Migrations
 {
-    [Migration(202003011748)]
+    [Migration(20200301174803)]
     public class CreateUserRoleTable : Migration
     {
         public override void Up()
