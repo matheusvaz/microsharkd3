@@ -8,7 +8,7 @@
       <PackageReference Include="FluentMigrator" Version="3.2.7" />
       <PackageReference Include="FluentNHibernate" Version="2.1.2" />
       <PackageReference Include="libphonenumber-csharp" Version="8.12.4" />
-      <PackageReference Include="MySql.Data" Version="8.0.20" />
+      <PackageReference Include="MySql.Data" Version="8.0.23" />
       <PackageReference Include="NHibernate" Version="5.2.7" />
       <PackageReference Include="Sodium.Core" Version="1.2.3" />
     </ItemGroup>
